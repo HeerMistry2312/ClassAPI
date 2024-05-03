@@ -1,8 +1,7 @@
-
-import mongoose, { Document, Schema } from 'mongoose';
-import { UserInterface } from './userModel';
-import Product,{ ProductInterface } from './productModel';
-import { ProfileInterface } from './profileModel';
+import mongoose, { Document, Schema } from "mongoose";
+import { UserInterface } from "./userModel";
+import Product, { ProductInterface } from "./productModel";
+import { ProfileInterface } from "./profileModel";
 
 export interface CartItemInterface {
   product: mongoose.Types.ObjectId | ProductInterface;
@@ -20,7 +19,7 @@ export interface CartInterface extends Document {
 const cartItemSchema: Schema<CartItemInterface> = new Schema({
   product: {
     type: Schema.Types.ObjectId,
-    ref: 'Product',
+    ref: "Product",
     required: true,
   },
   quantity: {
@@ -37,12 +36,12 @@ const cartItemSchema: Schema<CartItemInterface> = new Schema({
 const cartSchema: Schema<CartInterface> = new Schema({
   userId: {
     type: Schema.Types.ObjectId,
-    ref: 'User',
+    ref: "User",
     required: true,
   },
   profileId: {
     type: Schema.Types.ObjectId,
-    ref: 'Profile',
+    ref: "Profile",
     required: true,
   },
   items: [cartItemSchema],
@@ -53,14 +52,12 @@ const cartSchema: Schema<CartInterface> = new Schema({
   },
 });
 
-
-cartSchema.pre<CartInterface>('save', async function(next) {
+cartSchema.pre<CartInterface>("save", async function (next) {
   let totalAmount = 0;
   for (const item of this.items) {
     // Fetch the product details from the Product model
     const product = await Product.findById(item.product);
     if (product) {
-
       item.totalPrice = product.Price * item.quantity;
       totalAmount += item.totalPrice;
     }
@@ -69,6 +66,6 @@ cartSchema.pre<CartInterface>('save', async function(next) {
   next();
 });
 
-const CartModel = mongoose.model<CartInterface>('Cart', cartSchema);
+const CartModel = mongoose.model<CartInterface>("Cart", cartSchema);
 
 export default CartModel;

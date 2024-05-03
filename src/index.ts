@@ -20,15 +20,15 @@ export class App {
   private connectDB(): void {
     new Database();
   }
-  private routes():void{
-    const userRoute = new UserRouter().getRouter()
-    const profileRoute = new ProfileRouter().getRouter()
-    const productRoute = new ProductRouter().getRouter()
-    const cartRoute = new CartRouter().getRouter()
-    this.app.use('/user',userRoute)
-    this.app.use('/profile',profileRoute)
-    this.app.use('/product',productRoute)
-    this.app.use('/cart',cartRoute)
+  private routes(): void {
+    const userRoute = new UserRouter().getRouter();
+    const profileRoute = new ProfileRouter().getRouter();
+    const productRoute = new ProductRouter().getRouter();
+    const cartRoute = new CartRouter().getRouter();
+    this.app.use("/user", userRoute);
+    this.app.use("/profile", profileRoute);
+    this.app.use("/product", productRoute);
+    this.app.use("/cart", cartRoute);
   }
   public start(port: number): void {
     this.app.listen(port, () => {

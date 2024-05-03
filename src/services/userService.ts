@@ -31,11 +31,11 @@ export class UserServices {
     }
     const token = jwt.sign({ id: user._id }, "HeerMistry", { expiresIn: "7h" });
     user.token = token;
-    return token
+    return token;
   }
 
   //logout User
-  public static async logoutService(userId: string|undefined): Promise<void> {
+  public static async logoutService(userId: string | undefined): Promise<void> {
     const user = await User.findById({ _id: userId });
     if (user) {
       user.token = ""; // Remove token from user object
@@ -44,7 +44,7 @@ export class UserServices {
   }
 
   //remove User
-  public static async removeService(userId: string|undefined): Promise<void> {
+  public static async removeService(userId: string | undefined): Promise<void> {
     let remove = await User.deleteOne({ _id: userId });
     if (remove.deletedCount === 0) {
       throw new Error("User not found");
@@ -53,7 +53,7 @@ export class UserServices {
 
   //edit User
   public static async editService(
-    userId: string|undefined,
+    userId: string | undefined,
     userData: any
   ): Promise<void> {
     let user = await User.findByIdAndUpdate(userId, userData, { new: true });
