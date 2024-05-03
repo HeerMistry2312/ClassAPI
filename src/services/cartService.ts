@@ -136,7 +136,7 @@ export class CartServices {
     const filePath = path.join("src", "pdf_files", fileName);
 
     doc.pipe(fs.createWriteStream(filePath));
-    doc.fontSize(18).text("User Cart Details", { align: "center" });
+    doc.fontSize(18).text("Cart Details", { align: "center" });
     doc.moveDown();
     doc.fontSize(14).text(`User Name: ${user?.userName}`);
     doc.moveDown();
