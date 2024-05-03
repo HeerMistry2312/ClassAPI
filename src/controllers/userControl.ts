@@ -17,8 +17,8 @@ export class UserController {
   public static async loginUser(req: Request, res: Response): Promise<void> {
     try {
       const { userName, password } = req.body;
-      await UserServices.loginService(userName, password);
-      res.status(200).send({ message: "User Login Successfully" });
+      let token = await UserServices.loginService(userName, password);
+      res.status(200).send({token:token, message: "User Login Successfully" });
     } catch (error: any) {
       res.status(400).send({ message: error.message });
     }

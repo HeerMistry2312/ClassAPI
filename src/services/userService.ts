@@ -20,7 +20,7 @@ export class UserServices {
   public static async loginService(
     userName: string,
     password: string
-  ): Promise<void> {
+  ): Promise<string> {
     let user = await User.findOne({ userName });
     if (!user) {
       throw new Error("User Doesnt Exists");
@@ -31,7 +31,7 @@ export class UserServices {
     }
     const token = jwt.sign({ id: user._id }, "HeerMistry", { expiresIn: "7h" });
     user.token = token;
-    console.log(user);
+    return token
   }
 
   //logout User

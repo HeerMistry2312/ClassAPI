@@ -1,6 +1,5 @@
-import User from "../models/userModel";
+
 import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
 import Profile from "../models/profileModel";
 
 export class ProfileServices {
@@ -32,16 +31,16 @@ export class ProfileServices {
   }
 
   //Show all Profiles
-  public static async ShowProfiles(id: string|undefined): Promise<string>{
+  public static async ShowProfiles(id: string|undefined): Promise<object>{
     const profile = await Profile.find({ RefId: id});
     if (!profile || profile.length === 0) {
         console.log("No profile found ");
-        return "No Profile Found"
+        return {message:"No Profile Found"}
       }
     const Name = profile.map((profile) => profile.Name);
 
     console.log("Extracted Names:", Name);
-    return profile.toString();
+    return profile;
   }
 
   //Delete Particular Profile
@@ -75,7 +74,8 @@ export class ProfileServices {
         console.log("No Profile Found")
         return
     }
-    profile = await Profile.findByIdAndUpdate({profileId,body})
+    profile = await Profile.findByIdAndUpdate(profileId,body)
+
     profile?.save()
 
   }

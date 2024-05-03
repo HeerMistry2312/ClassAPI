@@ -3,7 +3,7 @@ import { UserInterface } from './userModel';
 import { ProductInterface } from './productModel';
 import { ProfileInterface } from './profileModel';
 
-interface CartInterface extends Document {
+export interface CartInterface extends Document {
   userId: mongoose.Types.ObjectId | UserInterface;
   profileId: mongoose.Types.ObjectId | ProfileInterface;
   items: {
